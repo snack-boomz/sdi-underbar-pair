@@ -1,0 +1,10 @@
+{
+  "name": "underbar-review",
+  "version": "1.0.0",
+  "description": "underbar-review",
+  "scripts": {
+    "start": "npx live-server"
+  },
+  "author": "Hack Reactor <curriculum.team@hackreactor.com>",
+  "license": "UNLICENSED"
+}
