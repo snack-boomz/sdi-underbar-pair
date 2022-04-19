@@ -9,6 +9,16 @@ TDD approach to learning. It walks you through a reimplementation of
 [underscore.js](http://underscore.js), a popular collection of useful functions
 authored by Jeremy Ashkenas.
 
+# Objectives
+* Implement functions and methods using classic and modern JS
+* Apply problem solving skills (IOCE, recursion) to solve complex problems
+* Manage state using closures and scope
+* Identify higher order functions and use for solutions
+* Employ debugging strategies for troubleshooting
+* Implement DRY best practices
+* Engage in the pair programming process
+* Interact with teammates through utilizing soft skills
+
 ## Links and Resources
 
 Some quick notes that may come in handy:
