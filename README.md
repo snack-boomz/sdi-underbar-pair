@@ -6,7 +6,7 @@ This project was written in the same spirit as
 [JavaScript Koans](https://github.com/mrdavidlaing/javascript-koans), and thusly
 uses the [Mocha Test Suite](http://visionmedia.github.io/mocha) to facilitate a
 TDD approach to learning. It walks you through a reimplementation of
-[underscore.js](http://underscore.js), a popular collection of useful functions
+[underscore.js](https://underscorejs.org/), a popular collection of useful functions
 authored by Jeremy Ashkenas.
 
 # Objectives
@@ -26,7 +26,7 @@ Some quick notes that may come in handy:
 - As you work through these functions, you may sometimes have questions about
   what arguments they take, or about how they work (their *interface*). If the
   inline comments don't clarify these questions, it's a good idea to reference
-  the official library's [documentation](http://underscore.js).
+  the official library's [documentation](https://underscorejs.org/).
 - Many of the functions operate on "collections." They can take both arrays or
   objects as their arguments and you need to be able to handle both cases.
     - You can use `Array.isArray(obj)` to find out whether an object is an array.
