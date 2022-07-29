@@ -32,7 +32,13 @@
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function (array, n) {
-    return n === undefined ? array[0] : array.slice(0, n);
+
+    if (n === undefined){
+      return array[0];
+    }
+    else{
+      return array.slice(0, n);
+    }
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
@@ -54,7 +60,6 @@
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
   _.each = function (collection, iterator) {
-
     if (typeof collection === 'object' && !Array.isArray(collection)) {
 
       if (iterator.length === 2) {
@@ -103,6 +108,19 @@
 
       }
     }
+
+    // if (Array.isArray(collection)) {
+    //   for (let x = 0; x < collection.length; x++) {
+    //     iterator(collection[x], x, collection);
+    //   }
+    // }
+    // else if ( typeof collection === 'object') {
+    //   let values = Object.values(collection);
+    //   let keys = Object.keys(collection);
+    //   for (let x = 0; x < values.length; x++) {
+    //     iterator(values[x], keys[x], collection);
+    //   }
+    // }
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
@@ -124,19 +142,26 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function (collection, test) {
-    let array = [];
-    for (let x = 0; x < collection.length; x++) {
-      if (test(collection[x])) {
-        array.push(collection[x]);
+    let fixedArray = [];
+
+    for(let x = 0; x < collection.length; x++){
+      if(test(collection[x])){
+        fixedArray.push(collection[x])
       }
-      // test = isEven
-      // var isEven = function (num) { return num % 2 === 0; };
     }
-    return array;
+    return fixedArray;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function (collection, test) {
+    let fixedArray = [];
+
+    for(let x = 0; x < collection.length; x++){
+      if(!test(collection[x])){
+        fixedArray.push(collection[x])
+      }
+    }
+    return fixedArray;
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
   };

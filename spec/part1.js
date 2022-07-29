@@ -109,7 +109,7 @@
 
       it('should iterate over arrays and provide access to each value', function () {
         var letters = ['a', 'b', 'c'];
-        var iterations = [];
+        var iterations = []
 
         _.each(letters, function (letter) {
           iterations.push(letter);
@@ -153,7 +153,7 @@
           iterations.push(letter);
         });
 
-        expect(iterations).to.not.include(FILL_ME_IN);
+        expect(iterations).to.not.include(iterations.someProperty);
       });
 
       it('should iterate over objects and provide access to each value', function () {
