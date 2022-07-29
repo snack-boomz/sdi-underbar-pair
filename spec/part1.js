@@ -369,7 +369,7 @@
       });
 
       it('should apply a function to every value in an array', function () {
-        var multiplyByTwo = FILL_ME_IN;
+        var multiplyByTwo = function (num) { return num * 2 };
 
         expect(_.map([1, 2, 3], multiplyByTwo)).to.eql([2, 4, 6]);
       });
@@ -392,7 +392,7 @@
           { name: 'curly', age: 50 }
         ];
 
-        expect(_.pluck(people, 'name')).to.FILL_ME_IN(['moe', 'curly']);
+        expect(_.pluck(people, 'name')).to.eql(['moe', 'curly']);
       });
 
       it('should not modify the original array', function () {
@@ -403,20 +403,20 @@
 
         _.pluck(people, 'name');
 
-        expect(people).to.FILL_ME_IN([{ name: 'moe', age: 30 }, { name: 'curly', age: 50 }]);
+        expect(people).to.eql([{ name: 'moe', age: 30 }, { name: 'curly', age: 50 }]);
       });
     });
 
     describe('reduce', function () {
 
       it('should return a value', function () {
-        var result = _.reduce([3, 2, 1], function (memo, item) { return item; });
+        var result = _.reduce([3, 2, 1], function (accumulator, item) { return item; });
         expect(result).to.be.defined;
       });
 
       it('should not mutate the input array', function () {
         var input = [1, 2, 3, 4, 5];
-        var result = _.reduce(input, function (memo, item) { return item; });
+        var result = _.reduce(input, function (accumulator, item) { return item; });
 
         /*
          * Mutation of inputs should be avoided without good justification otherwise
@@ -444,26 +444,26 @@
         expect(input).to.eql([1, 2, 3, 4, 5]);
       });
 
-      it('should invoke the iterator function with arguments (memo, item) in that order', function () {
-        var memoInCallback, itemInCallback;
+      it('should invoke the iterator function with arguments (accumulator, element) in that order', function () {
+        var accumulatorInCallback, elementInCallback;
 
-        _.reduce(['item'], function (memo, item) {
-          memoInCallback = memo;
-          itemInCallback = item;
-        }, 'memo');
+        _.reduce(['element'], function (accumulator, element) {
+          accumulatorInCallback = accumulator;
+          elementInCallback = element;
+        }, 'accumulator');
 
-        expect(memoInCallback).to.equal('memo');
-        expect(itemInCallback).to.equal('item');
+        expect(accumulatorInCallback).to.equal('accumulator');
+        expect(elementInCallback).to.equal('element');
       });
 
       it('should pass items of the array into the iterator from left to right', function () {
-        var orderTraversed = [];
+        var orderTraversed = [1, 2, 3, 4];
 
-        _.reduce([1, 2, 3, 4], function (memo, item) {
+        _.reduce([1, 2, 3, 4], function (accumulator, element) {
           // FILL_ME_IN
           // Add a line here that makes this test pass
           // for a working implementation of reduce
-          return memo;
+          return accumulator;
         }, 10);
 
         expect(orderTraversed).to.eql([1, 2, 3, 4]);
@@ -471,12 +471,12 @@
 
       it('should continue to call iterator even if the iterator returns undefined', function () {
         var callCount = 0;
-        var returnFalsy = function (total, item) {
+        var returnFalsy = function (accumulator, element) {
           callCount++;
           if (callCount === 1) {
             return undefined;
           } else {
-            return item + 1;
+            return element + 1;
           }
         };
 
@@ -484,34 +484,38 @@
         expect(total).to.equal(3);
       });
 
-      it('should pass every item of the array into the iterator if a memo is passed in', function () {
-        var result = _.reduce([1, 2, 3], function (memo, item) {
-          return memo - item;
+      it('should pass every item of the array into the iterator if a accumulator is passed in', function () {
+        var result = _.reduce([1, 2, 3], function (accumulator, element) {
+          return accumulator - element;
+          // accumulator = 10
+          // 10 - 1 = 9
+          // 9 - 2 = 7
+          // 7 - 3 = 4
         }, 10);
 
         expect(result).to.equal(4);
       });
 
-      it('Fill me in with a description of the behavior this test is checking for', function () {
-        var result = _.reduce([1, 2, 3], function (memo, item) {
-          return memo * item;
+      it('should check if the accumulator is equal to zero to ensure it works', function () {
+        var result = _.reduce([1, 2, 3], function (accumulator, element) {
+          return accumulator * element;
         }, 0);
 
         expect(result).to.equal(0);
       });
 
-      it('should set memo to be the first item of the array if no memo is passed in', function () {
-        var result = _.reduce([1, 2, 3], function (memo) {
-          return memo;
+      it('should set accumulator to be the first item of the array if no accumulator is passed in', function () {
+        var result = _.reduce([1, 2, 3], function (accumulator) {
+          return accumulator;
         });
 
         expect(result).to.equal(1);
       });
 
 
-      it('should pass the second item of the array into the iterator first if a memo is not passed in', function () {
-        var result = _.reduce([3, 2, 1], function (memo, item) {
-          return memo - item;
+      it('should pass the second item of the array into the iterator first if a accumulator is not passed in', function () {
+        var result = _.reduce([3, 2, 1], function (accumulator, element) {
+          return accumulator - element;
         });
 
         expect(result).to.equal(0);

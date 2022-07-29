@@ -33,10 +33,10 @@
   // return just the first element.
   _.first = function (array, n) {
 
-    if (n === undefined){
+    if (n === undefined) {
       return array[0];
     }
-    else{
+    else {
       return array.slice(0, n);
     }
   };
@@ -144,8 +144,8 @@
   _.filter = function (collection, test) {
     let fixedArray = [];
 
-    for(let x = 0; x < collection.length; x++){
-      if(test(collection[x])){
+    for (let x = 0; x < collection.length; x++) {
+      if (test(collection[x])) {
         fixedArray.push(collection[x])
       }
     }
@@ -156,26 +156,51 @@
   _.reject = function (collection, test) {
     let fixedArray = [];
 
-    for(let x = 0; x < collection.length; x++){
-      if(!test(collection[x])){
+    for (let x = 0; x < collection.length; x++) {
+      if (!test(collection[x])) {
         fixedArray.push(collection[x])
       }
     }
     return fixedArray;
+
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function (array) {
+    let uniqueArray = [];
+    for (let x = 0; x < array.length; x++) {
+      console.log(array[x]);
+      let duplicate = false;
+      for (let i = 0; i < uniqueArray.length; i++) {
+        console.log(uniqueArray[i]);
+        if (array[x] === uniqueArray[i]) {
+          duplicate = true;
+        }
+      }
+      if (duplicate === true) {
+
+      }
+      else {
+        uniqueArray.push(array[x]);
+      }
+
+    }
+    return uniqueArray;
   };
 
 
   // Return the results of applying an iterator to each element.
   _.map = function (collection, iterator) {
+    let mappedArr = [];
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    for (let x = 0; x < collection.length; x++) {
+      mappedArr.push(iterator(collection[x]));
+    }
+    return mappedArr;
   };
 
   /*
@@ -216,8 +241,38 @@
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
-  _.reduce = function (collection, iterator, accumulator) {
-  };
+  _.reduce = function (collection, iterator, accumulator = collection[0]) { // accumulator = collection[0];
+    let value = 0;
+    if (accumulator === collection[0]) {
+      for (let x = 1; x < collection.length; x++) {
+        console.log(collection[x]);
+        if (iterator(accumulator, collection[x]) === undefined) {
+          console.log('stuff')
+        }
+        else {
+          accumulator = iterator(accumulator, collection[x])
+          // 0 = 0 + 9 = 9
+          // 9 = 9 + 8 = 17
+          console.log(`accumulator: ${accumulator}`)
+        }
+      }
+    }
+    else {
+      for (let x = 0; x < collection.length; x++) {
+        console.log(collection[x]);
+        if (iterator(accumulator, collection[x]) === undefined) {
+          console.log('stuff')
+        }
+        else {
+          accumulator = iterator(accumulator, collection[x])
+          // 0 = 0 + 9 = 9
+          // 9 = 9 + 8 = 17
+          console.log(`accumulator: ${accumulator}`)
+        }
+      }
+    }
+    return accumulator;
+  }
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function (collection, target) {
