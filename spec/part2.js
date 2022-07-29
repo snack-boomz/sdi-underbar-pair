@@ -1,8 +1,8 @@
-(function() {
+(function () {
   'use strict';
 
-  var checkForNativeMethods = function(runUnderbarFunction) {
-    it('should not use the native version of any underbar methods in its implementation', function() {
+  var checkForNativeMethods = function (runUnderbarFunction) {
+    it('should not use the native version of any underbar methods in its implementation', function () {
       // These spies are set up in testSupport.js
       runUnderbarFunction();
       expect(Array.prototype.map.called).to.equal(false);
@@ -15,11 +15,11 @@
     });
   };
 
-  describe('Part II', function() {
+  describe('Part II', function () {
 
-    describe('contains', function() {
+    describe('contains', function () {
 
-      it('should not mutate the input array', function() {
+      it('should not mutate the input array', function () {
         var input = [1, 2, 3, 4, 5];
         var result = _.contains(input, 4);
 
@@ -49,128 +49,130 @@
         expect(input).to.eql([1, 2, 3, 4, 5]);
       });
 
-      it('should return true given an array and a value from that array', function() {
+      it('should return true given an array and a value from that array', function () {
         var array = [1, 2, 3];
         var value = 1;
         expect(_.contains(array, value)).to.be.true;
       });
 
-      it('should return false given an array and a value not in that array', function() {
+      it('should return false given an array and a value not in that array', function () {
+        var array = [1, 2, 3];
+        var value = 5;
         // Replace this line with an `expect` statement that tests
         // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+        expect(_.contains(array, value)).to.be.false;
       });
 
-      it('should return true given a object and a value from that object', function() {
+      it('should return true given a object and a value from that object', function () {
         var object = { a: 1, b: 2, c: 3 };
         var value = 1;
         expect(_.contains(object, value)).to.be.true;
       });
 
-      it('should return false given an object and a value not in that object', function() {
+      it('should return false given an object and a value not in that object', function () {
         var object = { a: 1, b: 2, c: 3 };
         var value = 4;
         expect(_.contains(object, value)).to.be.false;
       });
     });
 
-    describe('every', function() {
-      var isEven = function(num) {
+    describe('every', function () {
+      var isEven = function (num) {
         return num % 2 === 0;
       };
 
 
-      it('passes by default for an empty collection', function() {
+      it('passes by default for an empty collection', function () {
         expect(_.every([], _.identity)).to.be.true;
       });
 
-      it('passes for a collection of all-truthy values', function() {
+      it('passes for a collection of all-truthy values', function () {
         expect(_.every([true, {}, 1], _.identity)).to.be.true;
       });
 
-      it('fails for a collection of all-falsy values', function() {
+      it('fails for a collection of all-falsy values', function () {
         // Replace this line with an `expect` statement that tests
         // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+        expect(_.every([false, false, false], _.identity)).to.be.false;
       });
 
-      it('fails for a collection containing mixed falsy and truthy values', function() {
+      it('fails for a collection containing mixed falsy and truthy values', function () {
         expect(_.every([true, false, 1], _.identity)).to.be.false;
         expect(_.every([1, undefined, true], _.identity)).to.be.false;
       });
 
-      it('should work when provided a collection containing undefined values', function() {
+      it('should work when provided a collection containing undefined values', function () {
         expect(_.every([undefined, undefined, undefined], _.identity)).to.be.false;
       });
 
-      it('should cast the result to a boolean', function() {
+      it('should cast the result to a boolean', function () {
         expect(_.every([1], _.identity)).to.be.true;
         expect(_.every([0], _.identity)).to.be.false;
       });
 
-      it('should handle callbacks that manipulate the input', function() {
+      it('should handle callbacks that manipulate the input', function () {
         expect(_.every([0, 10, 28], isEven)).to.be.true;
         expect(_.every([0, 11, 28], isEven)).to.be.false;
       });
 
-      it('should work when no callback is provided', function() {
+      it('should work when no callback is provided', function () {
         expect(_.every([true, true, true])).to.be.true;
         expect(_.every([true, true, false])).to.be.false;
         expect(_.every([false, false, false])).to.be.false;
       });
     });
 
-    describe('some', function() {
-      var isEven = function(number) {
+    describe('some', function () {
+      var isEven = function (number) {
         return number % 2 === 0;
       };
 
 
-      it('should fail by default for an empty collection', function() {
+      it('should fail by default for an empty collection', function () {
         expect(_.some([])).to.be.false;
       });
 
-      it('should pass for a collection of all-truthy results', function() {
+      it('should pass for a collection of all-truthy results', function () {
         expect(_.some([true, {}, 1], _.identity)).to.be.true;
       });
 
-      it('should fail for a collection of all-falsy results', function() {
+      it('should fail for a collection of all-falsy results', function () {
         expect(_.some([null, 0, undefined], _.identity)).to.be.false;
       });
 
-      it('should pass for a collection containing mixed falsy and truthy results', function() {
+      it('should pass for a collection containing mixed falsy and truthy results', function () {
         expect(_.some([true, false, 1], _.identity)).to.be.true;
       });
 
-      it('should pass for a set containing one truthy value that is a string', function() {
+      it('should pass for a set containing one truthy value that is a string', function () {
         expect(_.some([null, 0, 'yes', false], _.identity)).to.be.true;
       });
 
-      it('should fail for a set containing no matching values', function() {
+      it('should fail for a set containing no matching values', function () {
         // Replace this line with an `expect` statement that tests
         // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+        expect(_.some([1, 3, 5], isEven)).to.be.false;
       });
 
-      it('should pass for a collection containing one matching value', function() {
+      it('should pass for a collection containing one matching value', function () {
         expect(_.some([1, 10, 29], isEven)).to.be.true;
       });
 
-      it('should cast the result to a boolean', function() {
+      it('should cast the result to a boolean', function () {
         expect(_.some([1], _.identity)).to.be.true;
         expect(_.some([0], _.identity)).to.be.false;
       });
 
-      it('should work when no callback is provided', function() {
+      it('should work when no callback is provided', function () {
         expect(_.some([true, true, true])).to.be.true;
         expect(_.some([true, true, false])).to.be.true;
         expect(_.some([false, false, false])).to.be.false;
       });
     });
 
-    describe('extend', function() {
+    describe('extend', function () {
 
-      it('returns the first argument', function() {
+      it('returns the first argument', function () {
         var destination = {};
         var source = {};
         var extended = _.extend(destination, source);
@@ -178,7 +180,7 @@
         expect(extended).to.equal(destination);
       });
 
-      it('should extend an object with the attributes of another', function() {
+      it('should extend an object with the attributes of another', function () {
         var destination = {};
         var source = { a: 'b' };
         var extended = _.extend(destination, source);
@@ -186,13 +188,18 @@
         expect(extended.a).to.equal('b');
       });
 
-      it('should override properties found on the destination', function() {
+      it('should override properties found on the destination', function () {
         // Replace this line with an `expect` statement that tests
         // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+
+        var destination = { a: 'b' };
+        var source = { a: 'b' };
+        var extended = _.extend(destination, source);
+
+        expect(extended).to.equal(destination);
       });
 
-      it('should not override properties not found in the source', function() {
+      it('should not override properties not found in the source', function () {
         var destination = { x: 'x' };
         var source = { a: 'b' };
         var extended = _.extend(destination, source);
@@ -200,22 +207,22 @@
         expect(extended.x).to.equal('x');
       });
 
-      it('should extend from multiple source objects', function() {
+      it('should extend from multiple source objects', function () {
         var extended = _.extend({ x: 1 }, { a: 2 }, { b: 3 });
 
         expect(extended).to.eql({ x: 1, a: 2, b: 3 });
       });
 
-      it('in the case of a conflict, it should use the last property\'s values when extending from multiple source objects', function() {
+      it('in the case of a conflict, it should use the last property\'s values when extending from multiple source objects', function () {
         var extended = _.extend({ x: 'x' }, { a: 'a', x: 2 }, { a: 1 });
 
         expect(extended).to.eql({ x: 2, a: 1 });
       });
     });
 
-    describe('defaults', function() {
+    describe('defaults', function () {
 
-      it('should return the original target object', function() {
+      it('should return the original target object', function () {
         /*
          * Our defaults function should only modify the contents of the original object,
          * it should not create a new object with all the same properties
@@ -234,7 +241,7 @@
         expect(defaulted).to.equal(destination); // .equal uses (===) under the hood
       });
 
-      it('should copy a property if that key is not already set on the target', function() {
+      it('should copy a property if that key is not already set on the target', function () {
         /*
          * Be careful when using `arguments`. It's specified as a weird "Array-like object"
          * that's not really an array and not really even an object. This means normal operations
@@ -264,13 +271,19 @@
         expect(destination.a).to.equal(1);
       });
 
-      it('should copy any property whose key is not already set on the target', function() {
+      it('should copy any property whose key is not already set on the target', function () {
         // Replace this line with an `expect` statement that tests
         // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+
+        var destination = { a: 1 };
+        var source = { a: 1, b: 2 };
+
+        _.defaults(destination, source);
+
+        expect(destination.b).to.equal(2);
       });
 
-      it('should not copy a property if that key is already set on the target', function() {
+      it('should not copy a property if that key is already set on the target', function () {
         var destination = { a: 10 };
         var source = { a: 1 };
 
@@ -279,7 +292,7 @@
         expect(destination.a).to.equal(10);
       });
 
-      it('should not copy any property whose key is already set on the target', function() {
+      it('should not copy any property whose key is already set on the target', function () {
         var destination = { a: 1, b: 2 };
         var source = { a: 100, b: 200, c: 300 };
 
@@ -290,7 +303,7 @@
         expect(destination.c).to.equal(300);
       });
 
-      it('should not copy a property if that key is already set on the target, even if the value for that key is falsy', function() {
+      it('should not copy a property if that key is already set on the target, even if the value for that key is falsy', function () {
         /*
          * When the value provided to an if() condition is not a strict boolean,
          * it will first be coerced into one and then evaluated
@@ -302,7 +315,7 @@
          * precise enough with our conditional check, we might get these unexpected results
          */
 
-        var destination = {a: '', b: 0, c: NaN };
+        var destination = { a: '', b: 0, c: NaN };
         var source = { a: 1, b: 2, c: 3 };
 
         _.defaults(destination, source);
@@ -312,7 +325,7 @@
         expect(isNaN(destination.c)).to.equal(true);
       });
 
-      it('should copy properties source an arbitrary number of source objects', function() {
+      it('should copy properties source an arbitrary number of source objects', function () {
         var destination = {};
         var source = { a: 1 };
         var anotherSource = { b: 2, c: 'three' };
@@ -326,7 +339,7 @@
         expect(destination.d).to.equal('four');
       });
 
-      it('should prefer the first value found when two objects are provided with properties at the same key', function() {
+      it('should prefer the first value found when two objects are provided with properties at the same key', function () {
         var destination = {};
         var source = { a: 1 };
         var anotherSource = { a: 'one' };
@@ -337,18 +350,18 @@
       });
     });
 
-    describe('once', function() {
+    describe('once', function () {
 
-      it('should return a function', function() {
+      it('should return a function', function () {
         // noop is short for `no-operation` and is pronounced `no-op`
-        var noop = _.once(function() {});
+        var noop = _.once(function () { });
 
         expect(noop).to.be.an.instanceOf(Function);
       });
 
-      it('should only run a user-defined function if it has not been run before', function() {
+      it('should only run a user-defined function if it has not been run before', function () {
         var num = 0;
-        var increment = _.once(function() {
+        var increment = _.once(function () {
           num++;
         });
 
@@ -359,16 +372,16 @@
         expect(num).to.equal(1);
       });
 
-      it('should apply arguments to the user-defined function', function() {
-        var add = _.once(function(x, y, z) {
+      it('should apply arguments to the user-defined function', function () {
+        var add = _.once(function (x, y, z) {
           return x + y + z;
         });
 
         expect(add(1, 2, 3)).to.equal(6);
       });
 
-      it('should return the result of the first call for every subsequent call', function() {
-        var add = _.once(function(x, y, z) {
+      it('should return the result of the first call for every subsequent call', function () {
+        var add = _.once(function (x, y, z) {
           return x + y + z;
         });
 
@@ -378,11 +391,11 @@
       });
     });
 
-    describe('memoize', function() {
+    describe('memoize', function () {
       var add, memoAdd;
 
-      beforeEach(function() {
-        add = function(a, b) {
+      beforeEach(function () {
+        add = function (a, b) {
           return a + b;
         };
 
@@ -390,22 +403,22 @@
       });
 
 
-      it('should produce the same result as the non-memoized version', function() {
+      it('should produce the same result as the non-memoized version', function () {
         expect(add(1, 2)).to.equal(3);
         expect(memoAdd(1, 2)).to.equal(3);
       });
 
-      it('should give different results for different arguments', function() {
+      it('should give different results for different arguments', function () {
         expect(memoAdd(1, 2)).to.equal(3);
         expect(memoAdd(3, 4)).to.equal(7);
         expect(memoAdd(1, 3)).to.equal(4);
       });
 
-      it('should not run the memoized function twice when given a primitive type as an argument', function() {
+      it('should not run the memoized function twice when given a primitive type as an argument', function () {
         // Here, we wrap a dummy function in a spy. A spy is a wrapper function (much like _.memoize
         // or _.once) that keeps track of interesting information about the function it's spying on;
         // e.g. whether or not the function has been called.
-        var spy = sinon.spy(function() { return 'Dummy output'; });
+        var spy = sinon.spy(function () { return 'Dummy output'; });
         var memoSpy = _.memoize(spy);
 
         memoSpy(10);
@@ -413,10 +426,10 @@
         memoSpy(10);
         expect(spy).to.have.been.calledOnce;
       });
-      
-      it('should not run the memoized function twice when given a reference type as an argument', function() {
+
+      it('should not run the memoized function twice when given a reference type as an argument', function () {
         // Be careful how you are checking if a set of arguments has been passed in already
-        var spy = sinon.spy(function() { return 'Dummy output'; });
+        var spy = sinon.spy(function () { return 'Dummy output'; });
         var memoSpy = _.memoize(spy);
 
         memoSpy([1, 2, 3]);
@@ -425,9 +438,9 @@
         expect(spy).to.have.been.calledOnce;
       });
 
-      it('should run the memoized function twice when given an array and then given a list of arguments', function() {
+      it('should run the memoized function twice when given an array and then given a list of arguments', function () {
         // Be careful how you are checking if a set of arguments has been passed in already
-        var spy = sinon.spy(function() { return 'Dummy output'; });
+        var spy = sinon.spy(function () { return 'Dummy output'; });
         var memoSpy = _.memoize(spy);
 
         memoSpy([1, 2, 3]);
@@ -437,15 +450,15 @@
       });
     });
 
-    describe('delay', function() {
+    describe('delay', function () {
       var callback;
 
-      beforeEach(function() {
+      beforeEach(function () {
         callback = sinon.spy();
       });
 
 
-      it('should only execute the function after the specified wait time', function() {
+      it('should only execute the function after the specified wait time', function () {
         _.delay(callback, 100);
         clock.tick(99);
 
@@ -456,7 +469,7 @@
         expect(callback).to.have.been.calledOnce;
       });
 
-      it('should have successfully passed function arguments in', function() {
+      it('should have successfully passed function arguments in', function () {
         _.delay(callback, 100, 1, 2);
         clock.tick(100);
 
@@ -464,31 +477,31 @@
       });
     });
 
-    describe('shuffle', function() {
+    describe('shuffle', function () {
 
-      it('should not modify the original object', function() {
+      it('should not modify the original object', function () {
         var numbers = [4, 5, 6];
         var shuffled = _.shuffle(numbers).sort();
 
         expect(shuffled).to.not.equal(numbers);
         expect(numbers).to.eql([4, 5, 6]);
       });
-            
-      it('should maintain same array length', function() {
+
+      it('should maintain same array length', function () {
         var numbers = [1, 1, 2, 3];
         var shuffled = _.shuffle(numbers);
 
         expect(shuffled.length).to.equal(numbers.length);
       });
 
-      it('should have the same elements as the original object', function() {
+      it('should have the same elements as the original object', function () {
         var numbers = [4, 5, 6];
         var shuffled = _.shuffle(numbers).sort();
 
         expect(shuffled).to.eql([4, 5, 6]);
       });
 
-      it('should not be in the same order as the original object', function() {
+      it('should not be in the same order as the original object', function () {
         var numbers = [4, 5, 6, 7, 8, 9, 10];
         var shuffled = _.shuffle(numbers);
 

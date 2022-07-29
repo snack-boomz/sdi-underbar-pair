@@ -241,38 +241,97 @@
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
+
+  // _.reduce = function (collection, iterator, accumulator){
+  //   accumulator =
+  //   for(let x = 0; x < collection; x++){
+  //     if()
+  //     iterator(accumulator, item[x])
+  //   }
+  // }
+
+
+
   _.reduce = function (collection, iterator, accumulator = collection[0]) { // accumulator = collection[0];
-    let value = 0;
-    if (accumulator === collection[0]) {
-      for (let x = 1; x < collection.length; x++) {
-        console.log(collection[x]);
-        if (iterator(accumulator, collection[x]) === undefined) {
-          console.log('stuff')
+
+
+
+    let values = Object.values(collection);
+
+    if (typeof collection === "object" && !Array.isArray(collection)) {
+
+      if (accumulator === collection[0]) {
+        accumulator = values[0];
+
+        for (let x = 1; x < values.length; x++) {
+
+          console.log(values[x]);
+
+          if (iterator(accumulator, values[x]) === undefined) {
+            console.log('stuff');
+          }
+
+          else {
+            accumulator = iterator(accumulator, values[x])
+            // 0 = 0 + 9 = 9
+            // 9 = 9 + 8 = 17
+            console.log(`accumulator: ${accumulator}`)
+          }
+
         }
-        else {
-          accumulator = iterator(accumulator, collection[x])
-          // 0 = 0 + 9 = 9
-          // 9 = 9 + 8 = 17
-          console.log(`accumulator: ${accumulator}`)
+
+      } else {
+
+        for (let x = 0; x < values.length; x++) {
+
+          if (iterator(accumulator, values[x]) === undefined) {
+
+            console.log('stuff');
+
+          } else {
+
+            accumulator = iterator(accumulator, values[x]);
+
+          }
+
+        }
+
+      }
+
+    } else {
+
+      if (accumulator === collection[0]) {
+        for (let x = 1; x < collection.length; x++) {
+          console.log(collection[x]);
+          if (iterator(accumulator, collection[x]) === undefined) {
+            console.log('stuff')
+          }
+          else {
+            accumulator = iterator(accumulator, collection[x])
+            // 0 = 0 + 9 = 9
+            // 9 = 9 + 8 = 17
+            console.log(`accumulator: ${accumulator}`)
+          }
         }
       }
-    }
-    else {
-      for (let x = 0; x < collection.length; x++) {
-        console.log(collection[x]);
-        if (iterator(accumulator, collection[x]) === undefined) {
-          console.log('stuff')
-        }
-        else {
-          accumulator = iterator(accumulator, collection[x])
-          // 0 = 0 + 9 = 9
-          // 9 = 9 + 8 = 17
-          console.log(`accumulator: ${accumulator}`)
+      else {
+        for (let x = 0; x < collection.length; x++) {
+          console.log(collection[x]);
+          if (iterator(accumulator, collection[x]) === undefined) {
+            console.log('stuff')
+          }
+          else {
+            accumulator = iterator(accumulator, collection[x])
+            // 0 = 0 + 9 = 9
+            // 9 = 9 + 8 = 17
+            console.log(`accumulator: ${accumulator}`)
+          }
         }
       }
     }
     return accumulator;
-  }
+
+  };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function (collection, target) {
@@ -283,19 +342,64 @@
         return true;
       }
       return item === target;
-    }, false);
+    }, 0);
   };
 
 
   // Determine whether all of the elements match a truth test.
   _.every = function (collection, iterator) {
     // TIP: Try re-using reduce() here.
+    let truthArray = [];
+    if (iterator === undefined) {
+      for (let i = 0; i < collection.length; i++) {
+        if (collection[i]) {
+          truthArray.push(collection[i]);
+        }
+      }
+
+      if (truthArray.length === collection.length) {
+        return true;
+      } else {
+        return false;
+      }
+
+    }
+    for (let i = 0; i < collection.length; i++) {
+      if (iterator(collection[i])) {
+        truthArray.push(collection[i]);
+      }
+    }
+
+    if (truthArray.length === collection.length) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function (collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    let truthArray = [];
+    if (iterator === undefined) {
+      for (let i = 0; i < collection.length; i++) {
+        if (collection[i]) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    for (let i = 0; i < collection.length; i++) {
+      if (iterator(collection[i])) {
+        return true;
+      }
+
+    }
+
+    return false;
+
   };
 
 
@@ -317,12 +421,105 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function (obj) {
+  _.extend = function (destinationObj, objToAdd, secondObjToAdd) {
+    // for loop to iterate over object
+    // grab each key and value
+    // destinationObj[property] = value;
+    // let size = Object.keys(myObj).length;
+    // destinationObj[property] = value;
+
+    // for loop to iterate over object
+    // grab each key and value
+    // destinationObj[property] = value;
+    // let size = Object.keys(myObj).length;
+    // destinationObj[property] = value;
+
+    let keys = Object.keys(objToAdd);
+    let values = Object.values(objToAdd);
+    for (let i = 0; i < keys.length; i++) {
+
+      console.log(keys[i]);
+      console.log(values[i]);
+      destinationObj[`${keys[i]}`] = values[i];
+      // destinationObj[`${keys[i]}`] = `${values[i]}`
+    }
+
+    if (secondObjToAdd) {
+      let keys = Object.keys(secondObjToAdd);
+      let values = Object.values(secondObjToAdd);
+      for (let i = 0; i < keys.length; i++) {
+        console.log(keys[i]);
+        console.log(values[i]);
+        destinationObj[`${keys[i]}`] = values[i];
+        // destinationObj[`${keys[i]}`] = `${values[i]}`
+      }
+    }
+
+
+    return destinationObj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  _.defaults = function (obj) {
+  _.defaults = function (destinationObj, objToAdd, secondObjToAdd, thirdObjToAdd) {
+    // for loop to iterate over object
+    // grab each key and value
+    // destinationObj[property] = value;
+    // let size = Object.keys(myObj).length;
+    // destinationObj[property] = value;
+
+    // for loop to iterate over object
+    // grab each key and value
+    // destinationObj[property] = value;
+    // let size = Object.keys(myObj).length;
+    // destinationObj[property] = value;
+
+    let keys = Object.keys(objToAdd);
+    let values = Object.values(objToAdd);
+    for (let i = 0; i < keys.length; i++) {
+
+      if (destinationObj.hasOwnProperty(`${keys[i]}`)) {
+
+        // if key already exists, ignore
+      } else {
+        destinationObj[`${keys[i]}`] = values[i];
+      }
+
+      // destinationObj[`${keys[i]}`] = `${values[i]}`
+    }
+
+    if (secondObjToAdd) {
+      let keys = Object.keys(secondObjToAdd);
+      let values = Object.values(secondObjToAdd);
+      for (let i = 0; i < keys.length; i++) {
+
+        if (destinationObj.hasOwnProperty(`${keys[i]}`)) {
+
+          // if key already exists, ignore
+        } else {
+          destinationObj[`${keys[i]}`] = values[i];
+        }
+        // destinationObj[`${keys[i]}`] = `${values[i]}`
+      }
+    }
+
+    if (thirdObjToAdd) {
+      let keys = Object.keys(thirdObjToAdd);
+      let values = Object.values(thirdObjToAdd);
+      for (let i = 0; i < keys.length; i++) {
+
+        if (destinationObj.hasOwnProperty(`${keys[i]}`)) {
+
+          // if key already exists, ignore
+        } else {
+          destinationObj[`${keys[i]}`] = values[i];
+        }
+        // destinationObj[`${keys[i]}`] = `${values[i]}`
+      }
+    }
+
+
+    return destinationObj;
   };
 
 
@@ -374,7 +571,14 @@
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
-  _.delay = function (func, wait) {
+  _.delay = function (func, wait, arg1, arg2) {
+
+    if (arg1 == undefined && arg2 == undefined) {
+      setTimeout(func, wait);
+    } else {
+      setTimeout(func(arg1, arg2), wait);
+    }
+
   };
 
 
@@ -389,6 +593,13 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function (array) {
+    // make copy of array with array.slice
+    // use Math.random() to shuffle up each element of copied array
+    let shuffledArray = [];
+    for (let i = 0; i < array.length; i++) {
+      // Math.floor(Math.random() * (array.length - 1))
+      shuffledArray.push(array[Math.floor(Math.random() * (array.length - 1))]);
+    }
   };
 
 
